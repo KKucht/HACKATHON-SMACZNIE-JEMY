@@ -1,4 +1,6 @@
+pandas
 osmnx
 networkx
 folium
-pandas
+geopy
+scikit-learn
