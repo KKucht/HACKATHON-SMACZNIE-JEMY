@@ -16,4 +16,4 @@ def create_points_list():
     grid_points = list(itertools.product(x_points, y_points))
 
     # wyświetlenie listy wszystkich punktów
-    return(grid_points)
+    return grid_points

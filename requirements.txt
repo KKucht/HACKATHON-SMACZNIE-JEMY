@@ -4,3 +4,5 @@ networkx
 folium
 geopy
 scikit-learn
+streamlit
+streamlit_folium
