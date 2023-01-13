@@ -7,4 +7,3 @@
 
 ## Start program 
 `(venv) py -m streamlit run main.py`\
-File should be in data.
