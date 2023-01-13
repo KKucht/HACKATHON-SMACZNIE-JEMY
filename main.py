@@ -9,6 +9,11 @@ from minutes_from_coordinates import get_distance_from_coordinates
 def get_pos(lat,lng):
     return lat,lng
 
+if 'text' not in st.session_state:
+    st.session_state['text'] = []
+
+
+
 if 'location' not in st.session_state:
     st.session_state['location'] = [54.3520, 18.6466]
 
@@ -41,6 +46,10 @@ if len(st.session_state["markers"]) != 0:
 
 map = st_folium(m, height=700, width=700)
 
+if len(st.session_state['text']) != 0:
+    for abcd in st.session_state['text']:
+        st.write(abcd)
+
 
 if map['last_clicked'] is not None:
     data = get_pos(map['last_clicked']['lat'], map['last_clicked']['lng'])
@@ -57,7 +66,16 @@ if map['last_clicked'] is not None:
             ))
             for key in locations.keys():
                 location = locations[key]
+                st.session_state['text'] = []
                 if location[0]:
-                    st.session_state['markers'].append(fl.Marker(
-                        [location[1][1], location[1][0]], popup="<i>"+location[1][2]+"</i>", tooltip=key , icon=fl.Icon(color="red"),
-                    ))
+                    if location[2] == 'walk':
+                        st.session_state['markers'].append(fl.Marker(
+                            [location[1][1], location[1][0]], popup="<i>"+location[1][2]+"</i>", tooltip=key , icon=fl.Icon(color="red", icon="person", prefix="fa"),
+                        ))
+                    elif location[2] == 'bike':
+                        st.session_state['markers'].append(fl.Marker(
+                            [location[1][1], location[1][0]], popup="<i>" + location[1][2] + "</i>", tooltip=key,
+                            icon=fl.Icon(color="green",icon="bicycle", prefix="fa"),
+                        ))
+                else:
+                    st.session_state['text'].append(key+" not found near by our location\n")
